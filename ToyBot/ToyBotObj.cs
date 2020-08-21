@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace ToyBot
 {
-    class ToyBot : IPlanObject
+    public class ToyBotObj : IPlanObject
     {
 
-        private Tuple<short,short> position;
-        private short orientation;
-        private short planId;
-        private Tuple<short, short> planSize;
+        private Tuple<short,short> _position;
+        private short _orientation;
+        private short _planId;
+        private Tuple<short, short> _planSize;
 
         // ToyBot Constructor
-        public ToyBot(Tuple<short, short> given_position, short given_orientation, short given_planId, Tuple<short, short> given_planSize)
+        public ToyBotObj(Tuple<short, short> position, short orientation, short planId, Tuple<short, short> planSize)
         {
-            position = given_position;
-            orientation = given_orientation;
-            planId = given_planId;
-            planSize = given_planSize;
+            _position = position;
+            _orientation = (short)(orientation % 4);
+            _planId = planId;
+            _planSize = planSize;
         }
 
         // Value Initialisation
-        public Tuple<short, short> Position { get => position; set => position = value; }
-        public short Orientation { get => orientation; set => orientation = (short)(value % 4); }
-        public short PlanId { get => planId; set => planId = value; }
-        public Tuple<short, short> PlanSize { get => planSize; set => planSize = value; }
+        public Tuple<short, short> Position { get => _position; set => _position = value; }
+        public short Orientation { get => _orientation; set => _orientation = (short)(value % 4); }
+        public short PlanId { get => _planId; set => _planId = value; }
+        public Tuple<short, short> PlanSize { get => _planSize; set => _planSize = value; }
 
         /*
          * Move is a function that updates the position by one step
@@ -50,30 +50,30 @@ namespace ToyBot
             {
                 // North
                 case 0:
-                    if (position.Item2 < planSize.Item2)
+                    if (_position.Item2 < _planSize.Item2)
                     {
-                        position = Tuple.Create<short, short>(position.Item1, (short)(position.Item2 + 1));
+                        _position = Tuple.Create<short, short>(_position.Item1, (short)(_position.Item2 + 1));
                     }
                     break;
                 // East
                 case 1:
-                    if (position.Item1 < planSize.Item1)
+                    if (_position.Item1 < _planSize.Item1)
                     {
-                        position = Tuple.Create<short, short>((short)(position.Item1 + 1), position.Item2);
+                        _position = Tuple.Create<short, short>((short)(_position.Item1 + 1), _position.Item2);
                     }
                     break;
                 // South
                 case 2:
-                    if (position.Item2 > 0)
+                    if (_position.Item2 > 0)
                     {
-                        position = Tuple.Create<short, short>(position.Item1, (short)(position.Item2 - 1));
+                        _position = Tuple.Create<short, short>(_position.Item1, (short)(_position.Item2 - 1));
                     }
                     break;
                 // West
                 case 3:
-                    if (position.Item1 > 0)
+                    if (_position.Item1 > 0)
                     {
-                        position = Tuple.Create<short, short>((short)(position.Item1 - 1), position.Item2);
+                        _position = Tuple.Create<short, short>((short)(_position.Item1 - 1), _position.Item2);
                     }
                     break;
             }
@@ -86,8 +86,8 @@ namespace ToyBot
          */
         public void Report()
         {
-            Console.WriteLine("Position: " + position.ToString());
-            Console.WriteLine("Orientation: " + FindOrientation(orientation));
+            Console.WriteLine("Position: " + _position.ToString());
+            Console.WriteLine("Orientation: " + FindOrientation(_orientation));
         }
 
         /*
@@ -95,15 +95,15 @@ namespace ToyBot
          */
         public void Rotate(short r)
         {
-            orientation = (short)(orientation + r);
+            _orientation = (short)(_orientation + r);
         }
 
         /*
          * Used to translate numerical orientation into string.
          */
-        private string FindOrientation(short orient)
+        private string FindOrientation(short orientation)
         {
-            switch (orient)
+            switch (orientation)
             {
                 case 0:
                     return "North";
