@@ -1,0 +1,7 @@
+C:\Users\Antoine\Source\Repos\ToyBot\ToyBot\bin\Debug\ToyBot.exe.config
+C:\Users\Antoine\Source\Repos\ToyBot\ToyBot\bin\Debug\ToyBot.exe
+C:\Users\Antoine\Source\Repos\ToyBot\ToyBot\bin\Debug\ToyBot.pdb
+C:\Users\Antoine\Source\Repos\ToyBot\ToyBot\obj\Debug\ToyBot.csprojAssemblyReference.cache
+C:\Users\Antoine\Source\Repos\ToyBot\ToyBot\obj\Debug\ToyBot.csproj.CoreCompileInputs.cache
+C:\Users\Antoine\Source\Repos\ToyBot\ToyBot\obj\Debug\ToyBot.exe
+C:\Users\Antoine\Source\Repos\ToyBot\ToyBot\obj\Debug\ToyBot.pdb
