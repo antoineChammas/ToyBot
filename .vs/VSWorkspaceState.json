@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\ToyBot"
+    "\\ToyBot",
+    "\\ToyBot\\Interfaces",
+    "\\ToyBot\\Objects"
   ],
-  "SelectedNode": "\\ToyBot\\Program.cs",
+  "SelectedNode": "\\ToyBot\\ToyBot.cs",
   "PreviewInSolutionExplorer": false
 }
