@@ -13,11 +13,55 @@ namespace ToyBot
          * Game Playing Function.
          * Writes to the console and takes user input to move/rotate the robot.
          * Here are the possible commands:
-         *   
+         *   - PLACE X,Y,F - places robot on table at position (x,y) and orientation F.
+         *   - MOVE - moves robot one tile.
+         *   - LEFT - rotates robot ccw.
+         *   - RIGHT - rotates robot cw.
+         *   - REPORT - writes position and orientation to the console.
+         *   - HELP - writes a log of possible commands.
+         *   - QUIT - quits application.
          */
-        public void ToyBotGame1()
+        public void ToyBotGame1(short mapId, short mapWidth, short mapHeight)
         {
+            // Startup Messages
+            Console.WriteLine("> Welcome to the ToyBot Program, please type your commands.");
+            Console.WriteLine("> If you need any help using the program, type HELP.");
+            // Initialising Variables
+            bool isRunning = true;
+            Tuple<short, short, short, short> interpretedInput;
+            string input;
+            ToyBotObj tbot = new ToyBotObj(Tuple.Create<short, short>(0, 0),
+                                           0,
+                                           -1,
+                                           Tuple.Create<short,short>(5,5));
 
+            // Until the user didn't Type Quit
+            while (isRunning)
+            {
+                input = Console.ReadLine();
+                interpretedInput = InterpretInput(input);
+                switch (interpretedInput.Item1)
+                {
+                    // PLACE X,Y,F
+                    case 0:
+                        break;
+                    // MOVE
+                    case 1:
+                        break;
+                    // LEFT | RIGHT
+                    case 2:
+                        break;
+                    // REPORT
+                    case 3:
+                        break;
+                    // QUIT
+                    case 4:
+                        break;
+                    // HELP
+                    case 5:
+                        break;
+                }
+            } 
         }
 
         /*
@@ -34,6 +78,7 @@ namespace ToyBot
          *   - RIGHT - returns (2, -1, -1, 1).
          *   - REPORT - returns (3, -1, -1, -1).
          *   - QUIT - returns (4, -1, -1, -1).
+         *   - HELP - returns (5, -1, -1, -1).
          * An unrecognised action is returned as (-1, -1, -1, -1).
          */
         public Tuple<short, short, short, short> InterpretInput(string consoleInput)
@@ -56,6 +101,8 @@ namespace ToyBot
                             return Tuple.Create<short, short, short, short>(3, -1, -1, -1);
                         case "quit":
                             return Tuple.Create<short, short, short, short>(4, -1, -1, -1);
+                        case "help":
+                            return Tuple.Create<short, short, short, short>(5, -1, -1, -1);
                     }
                     break;
                 case 2:

@@ -93,6 +93,14 @@ namespace ToyBotTest
                             Tuple.Create<short, short, short, short>(4, -1, -1, -1));
         }
 
+        [TestMethod]
+        public void InterpretInputTest11()
+        {
+            ConsoleReader cr = new ConsoleReader();
+            Assert.AreEqual(cr.InterpretInput("help"),
+                            Tuple.Create<short, short, short, short>(5, -1, -1, -1));
+        }
+
         /*
          * Unit Testing Find Orientation
          */
