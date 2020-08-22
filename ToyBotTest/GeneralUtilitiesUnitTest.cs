@@ -5,7 +5,7 @@ using ToyBot;
 namespace ToyBotTest
 {
     [TestClass]
-    public class GeneralUtilitiesTest
+    public class GeneralUtilitiesUnitTest
     {
         /*
          * Unit Testing Mod.
