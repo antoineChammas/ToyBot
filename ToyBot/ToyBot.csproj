@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneralUtilities.cs" />
     <Compile Include="ToyBotObj.cs" />
     <Compile Include="IPlanObject.cs" />
     <Compile Include="Program.cs" />

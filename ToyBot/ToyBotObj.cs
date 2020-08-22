@@ -26,7 +26,7 @@ namespace ToyBot
 
         // Value Initialisation
         public Tuple<short, short> Position { get => _position; set => _position = value; }
-        public short Orientation { get => _orientation; set => _orientation = (short)(value % 4); }
+        public short Orientation { get => _orientation; set => _orientation = GeneralUtilities.Mod(value, 4); }
         public short PlanId { get => _planId; set => _planId = value; }
         public Tuple<short, short> PlanSize { get => _planSize; set => _planSize = value; }
 
@@ -50,14 +50,14 @@ namespace ToyBot
             {
                 // North
                 case 0:
-                    if (_position.Item2 < _planSize.Item2)
+                    if (_position.Item2 < _planSize.Item2 - 1)
                     {
                         _position = Tuple.Create<short, short>(_position.Item1, (short)(_position.Item2 + 1));
                     }
                     break;
                 // East
                 case 1:
-                    if (_position.Item1 < _planSize.Item1)
+                    if (_position.Item1 < _planSize.Item1 - 1)
                     {
                         _position = Tuple.Create<short, short>((short)(_position.Item1 + 1), _position.Item2);
                     }
@@ -95,13 +95,13 @@ namespace ToyBot
          */
         public void Rotate(short r)
         {
-            _orientation = (short)(_orientation + r);
+            _orientation = GeneralUtilities.Mod((short)(_orientation + r), 4);
         }
 
         /*
          * Used to translate numerical orientation into string.
          */
-        private string FindOrientation(short orientation)
+        public string FindOrientation(short orientation)
         {
             switch (orientation)
             {

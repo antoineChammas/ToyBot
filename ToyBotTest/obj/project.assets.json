@@ -5736,11 +5736,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Antoine\\source\\repos\\ToyBot\\ToyBotTest\\ToyBotTest.csproj",
+      "projectUniqueName": "C:\\Users\\Antoine\\Source\\Repos\\ToyBot\\ToyBotTest\\ToyBotTest.csproj",
       "projectName": "ToyBotTest",
-      "projectPath": "C:\\Users\\Antoine\\source\\repos\\ToyBot\\ToyBotTest\\ToyBotTest.csproj",
+      "projectPath": "C:\\Users\\Antoine\\Source\\Repos\\ToyBot\\ToyBotTest\\ToyBotTest.csproj",
       "packagesPath": "C:\\Users\\Antoine\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Antoine\\source\\repos\\ToyBot\\ToyBotTest\\obj\\",
+      "outputPath": "C:\\Users\\Antoine\\Source\\Repos\\ToyBot\\ToyBotTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Antoine\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5756,8 +5756,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\Antoine\\source\\repos\\ToyBot\\ToyBot\\ToyBot.csproj": {
-              "projectPath": "C:\\Users\\Antoine\\source\\repos\\ToyBot\\ToyBot\\ToyBot.csproj"
+            "C:\\Users\\Antoine\\Source\\Repos\\ToyBot\\ToyBot\\ToyBot.csproj": {
+              "projectPath": "C:\\Users\\Antoine\\Source\\Repos\\ToyBot\\ToyBot\\ToyBot.csproj"
             }
           }
         }
