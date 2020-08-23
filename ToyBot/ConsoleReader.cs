@@ -57,8 +57,8 @@ namespace ToyBot
                         break;
                     // PLACE X,Y,F
                     case 0:
-                        if (Enumerable.Range(0, tbot.PlanSize.Item1-1).Contains(interpretedInput.Item2) &
-                            Enumerable.Range(0, tbot.PlanSize.Item2-1).Contains(interpretedInput.Item3)) 
+                        if (Enumerable.Range(0, tbot.PlanSize.Item1).Contains(interpretedInput.Item2) &
+                            Enumerable.Range(0, tbot.PlanSize.Item2).Contains(interpretedInput.Item3)) 
                         {
                             tbot.Position = Tuple.Create<short, short>(interpretedInput.Item2, interpretedInput.Item3);
                             tbot.Orientation = interpretedInput.Item4;
@@ -71,8 +71,8 @@ namespace ToyBot
                         else
                         {
                             Console.WriteLine("> Invalid placement, please give placement values:" +
-                                              "   - Between 0 and " + tbot.PlanSize.Item1.ToString() + " for X." +
-                                              "   - Between 0 and " + tbot.PlanSize.Item2.ToString() + " for Y.");
+                                              "\n   - Between 0 and " + (tbot.PlanSize.Item1 - 1).ToString() + " for X." +
+                                              "\n   - Between 0 and " + (tbot.PlanSize.Item2 - 1).ToString() + " for Y.");
                         }
                         break;
                     // MOVE

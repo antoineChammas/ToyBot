@@ -42,7 +42,7 @@ namespace ToyBotTest
         {
             ConsoleReader cr = new ConsoleReader();
             Assert.AreEqual(cr.InterpretInput("PLACE 2,1,b"),
-                            Tuple.Create<short, short, short, short>(-1, -1, -1, -1));
+                            Tuple.Create<short, short, short, short>(-2, -1, -1, -1));
         }
 
         [TestMethod]
@@ -107,6 +107,14 @@ namespace ToyBotTest
             ConsoleReader cr = new ConsoleReader();
             Assert.AreEqual(cr.InterpretInput("autorepOrt"),
                             Tuple.Create<short, short, short, short>(6, -1, -1, -1));
+        }
+
+        [TestMethod]
+        public void InterpretInputTest13()
+        {
+            ConsoleReader cr = new ConsoleReader();
+            Assert.AreEqual(cr.InterpretInput("m1ve"),
+                            Tuple.Create<short, short, short, short>(-1, -1, -1, -1));
         }
 
         /*
