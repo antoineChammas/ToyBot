@@ -17,6 +17,7 @@ namespace ToyBot
          *   - MOVE - moves robot one tile.
          *   - LEFT - rotates robot ccw.
          *   - RIGHT - rotates robot cw.
+         *   - AUTOREPORT - reports position and orientation automatically after PLACE, MOVE, LEFT and RIGHT.
          *   - REPORT - writes position and orientation to the console.
          *   - HELP - writes a log of possible commands.
          *   - QUIT - quits application.
@@ -28,6 +29,7 @@ namespace ToyBot
             Console.WriteLine("> If you need any help using the program, type HELP.");
             // Initialising Variables
             bool isRunning = true;
+            bool autoReport = false;
             Tuple<short, short, short, short> interpretedInput;
             string input;
             ToyBotObj tbot = new ToyBotObj(Tuple.Create<short, short>(0, 0),
@@ -43,22 +45,45 @@ namespace ToyBot
                 interpretedInput = InterpretInput(input);
                 switch (interpretedInput.Item1)
                 {
+                    // Error in Action
+                    case -2:
+                        Console.WriteLine("> Your action has an error in it," +
+                                           " please type HELP in order to consult our list of valid actions.");
+                        break;
                     // Unrecognised Action
                     case -1:
-                        Console.WriteLine("> Your action is either unrecognised or had an error," +
+                        Console.WriteLine("> Your action is unrecognised," +
                                            " please type HELP in order to consult our list of valid actions.");
                         break;
                     // PLACE X,Y,F
                     case 0:
-                        tbot.Position = Tuple.Create<short, short>(interpretedInput.Item2, interpretedInput.Item3);
-                        tbot.Orientation = interpretedInput.Item4;
-                        tbot.PlanId = planId;
+                        if (Enumerable.Range(0, tbot.PlanSize.Item1-1).Contains(interpretedInput.Item2) &
+                            Enumerable.Range(0, tbot.PlanSize.Item2-1).Contains(interpretedInput.Item3)) 
+                        {
+                            tbot.Position = Tuple.Create<short, short>(interpretedInput.Item2, interpretedInput.Item3);
+                            tbot.Orientation = interpretedInput.Item4;
+                            tbot.PlanId = planId;
+                            if (autoReport)
+                            {
+                                tbot.Report();
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("> Invalid placement, please give placement values:" +
+                                              "   - Between 0 and " + tbot.PlanSize.Item1.ToString() + " for X." +
+                                              "   - Between 0 and " + tbot.PlanSize.Item2.ToString() + " for Y.");
+                        }
                         break;
                     // MOVE
                     case 1:
                         if (tbot.PlanId != -1)
                         {
                             tbot.Move();
+                            if (autoReport)
+                            {
+                                tbot.Report();
+                            }
                         }
                         else
                         {
@@ -70,6 +95,10 @@ namespace ToyBot
                         if (tbot.PlanId != -1)
                         {
                             tbot.Rotate(interpretedInput.Item4);
+                            if (autoReport)
+                            {
+                                tbot.Report();
+                            }
                         }
                         else
                         {
@@ -96,13 +125,27 @@ namespace ToyBot
                     // HELP
                     case 5:
                         Console.WriteLine("> These are the actions you can make:" +
-                                          "\n  - PLACE X,Y,F - places robot on table at position (X,Y) and orientation F." +
+                                          "\n  - PLACE X,Y,F - places robot on table at position (X,Y) and orientation F (North,East,West,South)." +
                                           "\n  - MOVE - moves robot one tile." +
                                           "\n  - LEFT - rotates robot ccw." +
                                           "\n  - RIGHT - rotates robot cw." +
+                                          "\n  - AUTOREPORT - reports position and orientation automatically after PLACE, MOVE, LEFT and RIGHT." +
                                           "\n  - REPORT - writes position and orientation to the console." +
                                           "\n  - HELP - writes a log of possible commands." +
                                           "\n  - QUIT - quits application.");
+                        break;
+                    // AUTOREPORT
+                    case 6:
+                        if (autoReport)
+                        {
+                            Console.WriteLine("> AutoReport Disabled.");
+                            autoReport = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("> AutoReport Enabled.");
+                            autoReport = true;
+                        }
                         break;
                 }
             } 
@@ -120,6 +163,7 @@ namespace ToyBot
          *   - MOVE - returns (1, -1, -1, -1).
          *   - LEFT - returns (2, -1, -1, -1).
          *   - RIGHT - returns (2, -1, -1, 1).
+         *   - AUTOREPORT - reports position and orientation automatically after PLACE, MOVE, LEFT and RIGHT.
          *   - REPORT - returns (3, -1, -1, -1).
          *   - QUIT - returns (4, -1, -1, -1).
          *   - HELP - returns (5, -1, -1, -1).
@@ -147,6 +191,8 @@ namespace ToyBot
                             return Tuple.Create<short, short, short, short>(4, -1, -1, -1);
                         case "help":
                             return Tuple.Create<short, short, short, short>(5, -1, -1, -1);
+                        case "autoreport":
+                            return Tuple.Create<short, short, short, short>(6, -1, -1, -1);
                     }
                     break;
                 case 2:
@@ -159,7 +205,7 @@ namespace ToyBot
                                 short orientation = FindOrientation(splitValues[2]);
                                 if (!short.TryParse(splitValues[0], out short value_result) | !short.TryParse(splitValues[1], out short value_result1) | orientation == -1)
                                 {
-                                        return Tuple.Create<short, short, short, short>(-1, -1, -1, -1);
+                                        return Tuple.Create<short, short, short, short>(-2, -1, -1, -1);
                                 }
                                 return Tuple.Create<short, short, short, short>(0,
                                                                                 short.Parse(splitValues[0]),

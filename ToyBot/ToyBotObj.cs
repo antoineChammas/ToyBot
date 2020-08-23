@@ -46,6 +46,7 @@ namespace ToyBot
          */
         public void Move() 
         {
+            bool exceeds = true;
             switch (Orientation)
             {
                 // North
@@ -53,6 +54,7 @@ namespace ToyBot
                     if (_position.Item2 < _planSize.Item2 - 1)
                     {
                         _position = Tuple.Create<short, short>(_position.Item1, (short)(_position.Item2 + 1));
+                        exceeds = false;
                     }
                     break;
                 // East
@@ -60,6 +62,7 @@ namespace ToyBot
                     if (_position.Item1 < _planSize.Item1 - 1)
                     {
                         _position = Tuple.Create<short, short>((short)(_position.Item1 + 1), _position.Item2);
+                        exceeds = false;
                     }
                     break;
                 // South
@@ -67,6 +70,7 @@ namespace ToyBot
                     if (_position.Item2 > 0)
                     {
                         _position = Tuple.Create<short, short>(_position.Item1, (short)(_position.Item2 - 1));
+                        exceeds = false;
                     }
                     break;
                 // West
@@ -74,8 +78,13 @@ namespace ToyBot
                     if (_position.Item1 > 0)
                     {
                         _position = Tuple.Create<short, short>((short)(_position.Item1 - 1), _position.Item2);
+                        exceeds = false;
                     }
                     break;
+            }
+            if (exceeds)
+            {
+                Console.WriteLine("> Can't move further, please change the orientation.");
             }
         }
 
