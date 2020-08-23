@@ -86,8 +86,8 @@ namespace ToyBot
          */
         public void Report()
         {
-            Console.WriteLine("Position: " + _position.ToString());
-            Console.WriteLine("Orientation: " + FindOrientation(_orientation));
+            Console.WriteLine("> Position: " + _position.ToString());
+            Console.WriteLine("> Orientation: " + FindOrientation(_orientation));
         }
 
         /*

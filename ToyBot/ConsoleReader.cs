@@ -13,7 +13,7 @@ namespace ToyBot
          * Game Playing Function.
          * Writes to the console and takes user input to move/rotate the robot.
          * Here are the possible commands:
-         *   - PLACE X,Y,F - places robot on table at position (x,y) and orientation F.
+         *   - PLACE X,Y,F - places robot on table at position (X,Y) and orientation F.
          *   - MOVE - moves robot one tile.
          *   - LEFT - rotates robot ccw.
          *   - RIGHT - rotates robot cw.
@@ -21,7 +21,7 @@ namespace ToyBot
          *   - HELP - writes a log of possible commands.
          *   - QUIT - quits application.
          */
-        public void ToyBotGame1(short mapId, short mapWidth, short mapHeight)
+        public void ToyBotGame1(short planId, short planWidth, short planHeight)
         {
             // Startup Messages
             Console.WriteLine("> Welcome to the ToyBot Program, please type your commands.");
@@ -33,32 +33,76 @@ namespace ToyBot
             ToyBotObj tbot = new ToyBotObj(Tuple.Create<short, short>(0, 0),
                                            0,
                                            -1,
-                                           Tuple.Create<short,short>(5,5));
+                                           Tuple.Create<short,short>(planWidth, planHeight));
 
             // Until the user didn't Type Quit
             while (isRunning)
             {
+                Console.Write(">> ");
                 input = Console.ReadLine();
                 interpretedInput = InterpretInput(input);
                 switch (interpretedInput.Item1)
                 {
+                    // Unrecognised Action
+                    case -1:
+                        Console.WriteLine("> Your action is either unrecognised or had an error," +
+                                           " please type HELP in order to consult our list of valid actions.");
+                        break;
                     // PLACE X,Y,F
                     case 0:
+                        tbot.Position = Tuple.Create<short, short>(interpretedInput.Item2, interpretedInput.Item3);
+                        tbot.Orientation = interpretedInput.Item4;
+                        tbot.PlanId = planId;
                         break;
                     // MOVE
                     case 1:
+                        if (tbot.PlanId != -1)
+                        {
+                            tbot.Move();
+                        }
+                        else
+                        {
+                            Console.WriteLine("> ToyBot isn't on the table yet! Please use the PLACE X,Y,F command first!");
+                        }
                         break;
                     // LEFT | RIGHT
                     case 2:
+                        if (tbot.PlanId != -1)
+                        {
+                            tbot.Rotate(interpretedInput.Item4);
+                        }
+                        else
+                        {
+                            Console.WriteLine("> ToyBot isn't on the table yet! Please use the PLACE X,Y,F command first!");
+                        }
                         break;
                     // REPORT
                     case 3:
+                        if (tbot.PlanId != -1)
+                        {
+                            tbot.Report();
+                        }
+                        else
+                        {
+                            Console.WriteLine("> ToyBot isn't on the table yet! Please use the PLACE X,Y,F command first!");
+                        }
                         break;
                     // QUIT
                     case 4:
+                        isRunning = false;
+                        Console.WriteLine("> Thank you for using ToyBot!");
+                        Console.ReadLine();
                         break;
                     // HELP
                     case 5:
+                        Console.WriteLine("> These are the actions you can make:" +
+                                          "\n  - PLACE X,Y,F - places robot on table at position (X,Y) and orientation F." +
+                                          "\n  - MOVE - moves robot one tile." +
+                                          "\n  - LEFT - rotates robot ccw." +
+                                          "\n  - RIGHT - rotates robot cw." +
+                                          "\n  - REPORT - writes position and orientation to the console." +
+                                          "\n  - HELP - writes a log of possible commands." +
+                                          "\n  - QUIT - quits application.");
                         break;
                 }
             } 

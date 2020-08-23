@@ -10,7 +10,8 @@ namespace ToyBot
     {
         static void Main(string[] args)
         {
-
+            ConsoleReader cr = new ConsoleReader();
+            cr.ToyBotGame1(0, 5, 5);
         }
     }
 }
